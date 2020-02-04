@@ -1,0 +1,117 @@
+% --- Pin-cell burnup calculation ----------------------------
+
+set title "Pin-cell burnup calculation"
+
+% --- Pin definition:
+
+pin 1
+fuel   0.39218
+helium 0.40005
+clad   0.45720
+water
+
+% --- Geometry:
+
+surf 1  sqc 0.0 0.0 0.62992
+
+cell 1  0  fill  1  -1
+cell 2  0  outside   1
+
+% --- Fuel (composition given in atomic densities):
+
+mat fuel  -10.29769  burn 1
+92234.80c   0.00021719193856604058
+92235.80c   0.024299453778913967
+92236.80c   0.0001113031697250248
+92238.80c   0.975372051112795
+ 8016.80c   1.999242
+ 8017.80c   0.000758
+
+% --- Helium
+
+mat helium  -0.001598
+2003.80c  4.8088e-10
+2004.80c  0.00024043951912
+
+% --- Zircalloy cladding:
+
+mat clad   -6.55
+40091.80c  -0.10994725679002436
+40096.80c  -0.028947751411201494
+24050.80c  -4.173686536432398e-05
+24052.80c  -0.0008369936235260468
+24053.80c  -9.673586887095358e-05
+24054.80c  -2.4533642238675768e-05
+26054.80c  -9.315171073560117e-05
+26056.80c  -0.0015163752247343758
+26057.80c  -3.564608218682946e-05
+26058.80c  -4.826982343193628e-06
+50112.80c  -0.0001280150011885156
+50114.80c  -8.865813236022722e-05
+50115.80c  -4.607357438391996e-05
+50116.80c  -0.001987443043627223
+50117.80c  -0.0010588319166827192
+50118.80c  -0.0033677060749010084
+50119.80c  -0.001204557209296121
+50120.80c  -0.004607003655772829
+50122.80c  -0.0006656367398249325
+50124.80c  -0.0008460746519625024
+40090.80c  -0.4986186065354624
+40092.80c  -0.1699042107139048
+40094.80c  -0.1759321745494071
+
+% --- Water (composition given in atomic densities):
+
+mat water  -0.740582   moder lwtr 1001
+ 5010.80c  7.928e-06
+ 5011.80c  3.2072e-05
+ 1001.90c  0.04999221300000001
+ 1002.80c  7.787e-06
+ 8016.80c  0.023990904
+ 8017.80c  9.096e-06
+
+% --- Thermal scattering data for light water:
+
+therm lwtr lwtr.10t
+
+% --- Cross section library file path:
+
+set acelib "/opt/serpent/xsdata/xsdata_endfb71"
+
+% --- Reflective boundary condition:
+
+set bc 2
+
+% --- Neutron population and criticality cycles:
+
+set pop 100000 220 20
+
+% --- Decay and fission yield libraries:
+
+set declib "/opt/serpent/xsdata/sss_endfb71.dec"
+set nfylib "/opt/serpent/xsdata/sss_endfb71.nfy"
+
+% --- Depletion steps:
+
+
+% Use constant extrapolation for simplicity (predictor)
+set pcc 0
+
+% In 2D, the power is 174 W/cm
+set power 174
+
+% Depletion steps calculated by OpenMC's operator
+dep daytot
+2.52077798    12.60388992   25.20777984   50.41555968   75.62333952
+100.83111936  126.0388992   151.24667905  176.45445889  201.66223873
+226.87001857  252.07779841  277.28557825  315.09724801  378.11669761
+441.13614721  504.15559682  567.17504642  630.19449602  693.21394562
+756.23339523  819.25284483  882.27229443  945.29174403 1008.31119363
+1071.33064324 1134.35009284 1260.38899204
+
+
+% --- Isotope list for inventory calculation:
+
+set inventory all
+
+% ------------------------------------------------------------

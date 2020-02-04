@@ -1,0 +1,7 @@
+*.out
+*.m
+*.seed
+*.h5
+*.xml
+*~
+.vscode
