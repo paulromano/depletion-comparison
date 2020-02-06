@@ -74,25 +74,21 @@ mat water  -0.740582   moder lwtr 1001
 
 therm lwtr lwtr.10t
 
-% --- Cross section library file path:
-
-set acelib "/opt/serpent/xsdata/xsdata_endfb71"
-
 % --- Reflective boundary condition:
 
 set bc 2
 
 % --- Neutron population and criticality cycles:
 
-set pop 100000 220 20
+set pop 10000 220 20
 
-% --- Decay and fission yield libraries:
+% --- Cross section, decay, and fission yield libraries:
 
+set acelib "/opt/serpent/xsdata/xsdata_endfb71"
 set declib "/opt/serpent/xsdata/sss_endfb71.dec"
 set nfylib "/opt/serpent/xsdata/sss_endfb71.nfy"
 
-% --- Depletion steps:
-
+% --- Depletion
 
 % Use constant extrapolation for simplicity (predictor)
 set pcc 0

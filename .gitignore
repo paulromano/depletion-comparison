@@ -1,5 +1,6 @@
 *.out
 *.m
+*.dep
 *.seed
 *.h5
 *.xml

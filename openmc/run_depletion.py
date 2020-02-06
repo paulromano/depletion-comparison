@@ -46,7 +46,7 @@ box = openmc.model.rectangular_prism(pitch, pitch, boundary_type='reflective')
 
 # Create cells
 fuel = openmc.Cell(fill=uo2, region=-fuel_or)
-gap = openmc.Cell(fill=helium, region=+fuel_or & -clad_or)
+gap = openmc.Cell(fill=helium, region=+fuel_or & -clad_ir)
 clad = openmc.Cell(fill=zircaloy, region=+clad_ir & -clad_or)
 water = openmc.Cell(fill=borated_water, region=+clad_or & box)
 
@@ -68,7 +68,7 @@ uo2.volume = pi * fuel_or.r**2
 settings = openmc.Settings()
 settings.batches = 220
 settings.inactive = 20
-settings.particles = 100000
+settings.particles = 10000
 
 # Create an initial uniform spatial source distribution over fissionable zones
 settings.source = openmc.source.Source(space=openmc.stats.Point())
@@ -82,7 +82,7 @@ with open('serpent_fissq.json', 'r') as f:
     serpent_fission_q = json.load(f)
 
 # Set up depletion operator
-chain_file = '/opt/data/depletion_chains/chain_casl.xml'
+chain_file = '/opt/data/depletion_chains/updated/chain_casl_pwr.xml'
 op = openmc.deplete.Operator(geometry, settings, chain_file, fission_q=serpent_fission_q)
 
 # burnup steps in MWd/kg
