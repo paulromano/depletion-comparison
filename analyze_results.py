@@ -16,7 +16,7 @@ z, a, m = zam(nuc)
 # Read OpenMC results ---------------------------------------------------------
 
 # Open results file
-results = openmc.deplete.ResultsList.from_hdf5("openmc/casl_chain/depletion_results.h5")
+results = openmc.deplete.ResultsList.from_hdf5("openmc/depletion_results.h5")
 
 # Obtain K_eff as a function of time
 time, keff = results.get_eigenvalue()
@@ -36,10 +36,12 @@ serpent_conc = fuel.getValues('days', 'adens', names=f'{ATOMIC_SYMBOL[z]}{a}{"m"
 
 # Plot results ----------------------------------------------------------------
 
+fig, ax = plt.subplots()
 day = 24*60*60
-plt.plot(time/day, openmc_conc, label=f"{nuc} (OpenMC)")
-plt.plot(serpent_days, serpent_conc, label=f"{nuc} (Serpent)")
-plt.xlabel("Time (days)")
-plt.ylabel("Atom/barn")
-plt.legend()
+ax.plot(time/day, openmc_conc, 'kx', label=f"{nuc} (OpenMC)")
+ax.plot(serpent_days, serpent_conc, 'b-', label=f"{nuc} (Serpent)")
+ax.set_xlabel("Time (days)")
+ax.set_ylabel("Atom/barn")
+ax.legend()
+ax.grid(True, which='both')
 plt.show()
