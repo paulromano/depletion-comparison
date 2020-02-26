@@ -6,3 +6,5 @@
 *.xml
 *~
 .vscode
+*.png
+stdout
