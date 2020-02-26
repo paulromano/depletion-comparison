@@ -85,8 +85,8 @@ set pop 100000 200 20
 % --- Cross section, decay, and fission yield libraries:
 
 set acelib "xsdata_endfb71"
-set declib "/opt/serpent/xsdata/sss_endfb71.dec"
-set nfylib "/opt/serpent/xsdata/sss_endfb71.nfy"
+set declib "sss_endfb71.dec"
+set nfylib "sss_endfb71.nfy"
 
 % --- Depletion
 
