@@ -10,10 +10,17 @@ filename = {
     'nfy': 'sss_endfb71.nfy'
 }
 
+md5s = {
+    'decay': 'ad346888d55427c3f25d39f7fed3e659',
+    'nfy': '0420894a296871cd08f68def84526d0e',
+}
+
 with TemporaryDirectory() as tmpdir:
     for sublib in ('decay', 'nfy'):
         # download and extract from zip file
-        download(f'https://www.nndc.bnl.gov/endf/b7.1/zips/ENDF-B-VII.1-{sublib}.zip')
+        download(
+            f'https://www.nndc.bnl.gov/endf/b7.1/zips/ENDF-B-VII.1-{sublib}.zip',
+            checksum=md5s[sublib])
         with zipfile.ZipFile(f'ENDF-B-VII.1-{sublib}.zip') as z:
             z.extractall(path=tmpdir)
 
