@@ -2,7 +2,7 @@ from tempfile import TemporaryDirectory
 from pathlib import Path
 import zipfile
 
-from openmc._utils import download
+from utils import download
 
 
 filename = {
